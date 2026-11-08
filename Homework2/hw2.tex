@@ -1,0 +1,192 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+\usepackage[]{amssymb} %gives us the character \varnothing
+\usepackage{amsmath}
+
+\title{Homework 2}
+\author{Student}
+\date\today
+%This information doesn't actually show up on your document unless you use the maketitle command below
+
+\begin{document}
+\maketitle %This command prints the title based on information entered above
+
+Read the code in the \texttt{hw\_02.tex} file to see how the document is formatted. ``Math mode'' in \LaTeX  can be delimited by dollar signs or by beginning and ending an \texttt{equation} or \texttt{aligned} environment. I suggest making a copy of the original \LaTeX file and editing the copy in case something breaks and you're not sure how to get back to the functioning file. As with any code, make incremental changes and compile them so that if you make a mistake it is easy to undo.
+
+In order to generate a \texttt{.pdf} file, you will use the command line command
+
+\begin{verbatim}
+pdflatex file_name.tex
+\end{verbatim}
+
+You will need both \texttt{latex} and the \texttt{pdflatex} tools installed. Both should be included if you follow the instructions for your platform here:
+
+\begin{verbatim}
+https://www.latex-project.org/get/
+\end{verbatim}
+
+\subsection*{Some \LaTeX  math examples}
+
+Ordinary equations use the \texttt{equation} environment. The asterisk is used to suppress numbering (generally we won't need numbered equations). Look closely at the \texttt{.tex} code to see how to typeset expressions like the following.
+
+\subsubsection*{Complex numbers, fractions, and exponents}
+
+Here's an example of the rectangular and polar/exponential forms of a complex number.
+
+\begin{equation*}
+   \frac{1}{\sqrt{2}} + \frac{i}{\sqrt{2}} = e^{i\frac{\pi}{4}}
+\end{equation*}
+
+The vertical bars below represent the absolute value or magnitude of a complex number. This is its distance from zero (in any direction), so in polar form it is simply the coefficient $r$.
+
+\begin{equation*}
+   |4e^{i\frac{\pi}{3}}| = 4
+\end{equation*}
+
+\subsubsection*{Matrices and vectors}
+
+Matrices and vectors in square brackets are represented by the \texttt{bmatrix} environment.
+
+\begin{equation*}
+\begin{bmatrix}
+    1 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 0 \\
+    0 & 0 & 0 & 1 \\
+    0 & 0 & 1 & 0 \\
+\end{bmatrix}
+\begin{bmatrix}
+    \alpha  \\
+    \beta  \\
+    \gamma  \\
+    \delta  \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+    \alpha  \\
+    \beta  \\
+    \delta  \\
+    \gamma  \\
+\end{bmatrix}
+\end{equation*}
+
+We can use curly brackets to indicate what object is associated with a superscript.
+
+\begin{equation*}
+{\begin{bmatrix}
+    1 & 0 \\
+\end{bmatrix}}^{T}
+=
+\begin{bmatrix}
+    1 \\
+    0 \\
+\end{bmatrix}
+\end{equation*}
+
+Be sure to put your own name in the author field of this document!
+
+
+\subsection*{Question 1}
+
+Write out the equation of $e$ to the power of $i\frac{\pi}{4}$ times $e$ to the power of $-i\frac{\pi}{4}$, including the answer written in the simplest terms.
+
+\subsubsection*{Solution 1:}
+
+$e^{i\pi/4}e^{-i\pi/4}=e^0=1$
+
+\subsection*{Question 2}
+
+Express the complex number $(2+3i) + (8-i)$ in the form $a+ib$.
+
+\subsubsection*{Solution 2:}
+
+$(2+3i)+(8-i)=10+2i$
+
+\subsection*{Question 3}
+
+Write the complex number $\frac{1}{2} + i \frac{\sqrt{3}}{2}$ in exponential/polar form. You may use any tools you wish to compute the conversion.
+
+\subsubsection*{Solution 3:}
+
+$\frac12+i\frac{\sqrt3}{2}=e^{i\pi/3}$
+
+\subsection*{Question 4}
+
+Write out the equation of $e$ to the power of $i\frac{\pi}{2}$ times $e$ to the power of $i\frac{\pi}{4}$, including the answer written in \textit{rectangular form}.
+
+\subsubsection*{Solution 4:}
+
+$e^{i\pi/2}e^{i\pi/4}=e^{3i\pi/4}=-\frac{\sqrt2}{2}+i\frac{\sqrt2}{2}$
+
+\subsection*{Question 5}
+
+Complete the matrix multiplication equation below with the correct answer, replacing the question mark. Try to calculate the product by hand. Verify your solution by coding it in Python or using an online matrix multiplication tool.
+
+\subsubsection*{Solution 5:}
+
+\begin{equation*}
+\begin{bmatrix}
+    1 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 1 \\
+    0 & 0 & 1 & 0 \\
+\end{bmatrix}
+\begin{bmatrix}
+     1 & 2 & 3 \\
+     4 & 5 & 6 \\
+     7 & 8 & 9 \\
+    10 & 11 & 12 \\
+\end{bmatrix}
+=
+\begin{bmatrix}1&2&3\\14&16&18\\7&8&9\end{bmatrix}
+\end{equation*}
+
+\subsection*{Question 6}
+
+Complete the matrix multiplication equation below with the correct answer, replacing the question mark. Try to calculate the product by hand. Verify your solution by coding it in Python or using an online matrix multiplication tool.
+
+\subsubsection*{Solution 6:}
+
+\begin{equation*}
+\begin{bmatrix}
+    3 & 5 & 7  \\
+    0 & 2 & 2  \\
+    1 & 5 & 1  \\
+\end{bmatrix}
+\begin{bmatrix}
+     1 & 2 & 3 \\
+     4 & 5 & 6 \\
+     7 & 8 & 9 \\
+\end{bmatrix}
+=
+\begin{bmatrix}72&87&102\\22&26&30\\28&35&42\end{bmatrix}
+\end{equation*}
+
+\subsection*{Question 7}
+
+The conjugate transpose of a matrix is the transpose of the original matrix with all complex values replaced by their complex conjugates. This is sometimes called the \textit{Hermitian transpose} and sometimes called the \textit{adjoint} of the matrix. (In fact, \textit{adjoint} is a somewhat more general term but for our purposes they are equivalent).
+
+Write out the \LaTeX  code for the conjuate transpose of the following matrix:
+
+\begin{equation*}
+    \begin{bmatrix}
+    1                   &  5         & e^{-i\frac{\pi}{3}}  \\
+    e^{i\frac{\pi}{3}}  &  2         & 2  \\
+    3                   &  5         & 2e^{-i\frac{\pi}{4}}  \\
+\end{bmatrix}
+\end{equation*}
+
+\subsubsection*{Solution 7:}
+
+Conjugate transpose:\[
+\begin{bmatrix}
+1 & e^{-i\pi/3} & 3\\
+5 & 2 & 5\\
+e^{i\pi/3} & 2 & 2e^{i\pi/4}
+\end{bmatrix}
+\]
+
+\subsection*{Submission}
+
+Be sure to copy or move your solution files (both \texttt{.tex} and \texttt{.pdf}) into the \texttt{solutions} directory for this assignment.
+\end{document}
