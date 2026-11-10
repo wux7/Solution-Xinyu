@@ -1,0 +1,189 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+\usepackage[]{amssymb} %gives us the character \varnothing
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usetikzlibrary{quantikz2}
+\usepackage{blochsphere}
+
+\title{Homework 3}
+\author{Xinyu Wu}
+\date{}
+
+%This information doesn't actually show up on your document unless you use the maketitle command below
+
+\begin{document}
+\maketitle %This command prints the title based on information entered above
+
+Read the code in the \texttt{hw\_03.tex} file to see how the document is formatted. ``Math mode'' in \LaTeX  can be delimited by dollar signs or by beginning and ending an \texttt{equation} or \texttt{aligned} environment. I suggest making a copy of the original \LaTeX file and editing the copy in case something breaks and you're not sure how to get back to the functioning file. As with any code, make incremental changes and compile them so that if you make a mistake it is easy to undo.
+
+In order to generate a \texttt{.pdf} file, you will use the command line command
+
+\begin{verbatim}
+pdflatex file_name.tex
+\end{verbatim}
+
+You will need both \texttt{latex} and the \texttt{pdflatex} tools installed. Both should be included if you follow the instructions for your platform here:
+
+\begin{verbatim}
+https://www.latex-project.org/get/
+\end{verbatim}
+
+\subsection*{Quantum examples in \LaTeX}
+
+We can represent bras and kets in math mode as $\bra{\psi}$ and $\ket{\psi}$ using the \texttt{quantikz} library and its dependencies (See the \texttt{usepackage} commands above). A full bracket (inner product) looks like $\braket{\psi}{\psi}$.
+
+Pauli and other operators are often written with a caret or angled `hat' over them like $\hat{X}$ to distinguish them from ordinary variables.
+
+Be sure to put your own name in the author field of this document!
+
+\subsection*{Question 1}
+
+Applying a $\hat{Y}$ gate to $\ket{0}$ yields $\ket{1}$ (disregarding global phase). Write out this operation fully as matrix multiplication. Refer to previous assignments for \LaTeX demo code for matrices.
+
+\subsubsection*{Solution 1:}
+
+\[\begin{bmatrix}0&-i\\i&0\end{bmatrix}\begin{bmatrix}1\\0\end{bmatrix}=\begin{bmatrix}0\\i\end{bmatrix}=i\ket{1}\]
+
+
+\subsection*{Question 2}
+
+The multiplication of the vector
+
+$${\left[ \frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}}\right]}^T$$
+
+by the matrix
+
+\begin{equation*}
+    \begin{bmatrix}
+        1 & 0 \\
+        0 & -1 \\
+    \end{bmatrix}
+\end{equation*}
+
+Can be written in a concise way using the common gate variable representation for the matrix and the conventional representation for this vector as a single qubit state. The result of the operation also has a conventional representation. Write out the entire equation (including the result) below using conventional braket notation as concisely as you can.
+
+\subsubsection*{Solution 2:}
+
+\[\hat Z\ket{+}=\ket{-}\]
+
+
+\subsection*{Question 3}
+
+Write out the following equation in full matrix/vector notation, including with the result
+
+$$
+\hat{X}\left(\frac{1}{2}\ket{0}+\frac{\sqrt{3}}{2}e^{\frac{\pi}{2}i}\ket{1} \right)=\mathbf{?}
+$$
+
+\subsubsection*{Solution 3:}
+
+\[\begin{bmatrix}0&1\\1&0\end{bmatrix}\begin{bmatrix}\frac12\\\frac{\sqrt3}{2}i\end{bmatrix}=\begin{bmatrix}\frac{\sqrt3}{2}i\\\frac12\end{bmatrix}\]
+
+\subsection*{Question 4}
+
+If we have two state vectors
+
+$$
+\psi =
+\begin{bmatrix}
+    1 \\
+    0
+\end{bmatrix}$$
+
+and
+
+$$
+\phi =
+\begin{bmatrix}
+    0 \\
+    1
+\end{bmatrix}$$
+
+Write out the braket form of their inner product, including the answer.
+
+\subsubsection*{Solution 4:}
+
+\[\braket{\psi}{\phi}=\braket{0}{1}=0\]
+
+
+\subsection*{Question 5}
+
+Matrix muliplication is asociative, so $M_b (M_a V) = (M_b M_a)V$. That is, applying the operation $M_a$ to the vector $V$ and then applying the operation $M_b$ to the result is the same as applying the product of $M_b$ and $M_a$ to $V$. (Matrix multiplication is not commutative, so left-to-right order matters).
+
+Use matrix multiplication to create a single matrix that is the equivalent of applying the $\hat{X}$ Pauli operator followed by they $\hat{Y}$ Pauli operator. Remember that the order of application of matrix operations is right to left.
+
+Write out the full matrix multiplication equation, including the matrix representations of the Pauli operators.
+
+\subsubsection*{Solution 5:}
+
+\[\hat Y\hat X=\begin{bmatrix}0&-i\\i&0\end{bmatrix}\begin{bmatrix}0&1\\1&0\end{bmatrix}=\begin{bmatrix}-i&0\\0&i\end{bmatrix}\]
+
+\subsection*{Question 6}
+
+A Hadamard gate operation is represented by the matrix
+
+\begin{equation*}
+    \begin{bmatrix}
+        \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\
+        \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} \\
+    \end{bmatrix}
+\end{equation*}
+
+Equivalently you will often see this matrix simplified as
+
+\begin{equation*}
+    \frac{1}{\sqrt{2}}
+    \begin{bmatrix}
+        1 & 1 \\
+        1 & -1 \\
+    \end{bmatrix}
+\end{equation*}
+
+Write out the matrix multiplication of this matrix with the vector representing the state $\ket{+}$.
+
+\subsubsection*{Solution 6:}
+
+\[\frac1{\sqrt2}\begin{bmatrix}1&1\\1&-1\end{bmatrix}\frac1{\sqrt2}\begin{bmatrix}1\\1\end{bmatrix}=\begin{bmatrix}1\\0\end{bmatrix}\]
+
+\subsection*{Question 7}
+
+A phase gate for angle $\theta$ such as the ones shown in the demo code and dealt with in this week's Python coding homework is represented by the matrix
+
+\begin{equation*}
+    \begin{bmatrix}
+        1 & 0 \\
+        0 & e^{i\theta} \\
+    \end{bmatrix}
+\end{equation*}
+
+Write out the full equation represented by the circuit in your solution to Exercise 4 in the coding portion of this week's assignment.
+
+Remember that the order of application of the gates is read from left to right in quantum circuits, but the order of multiplication of matrices is read from right to left, similarly to the way we write functions. Apply the operations in the correct order to the vector representing the $|0\rangle$ state. Make sure that your result corresponds with the probabilities you arrived at in Exercise 4, i.e. 0.75 probability of a 0 outcome and 0.25 probabililty for a 1 outcome.
+
+\subsubsection*{Solution 7:}
+
+\[\frac12\begin{bmatrix}1&1\\1&-1\end{bmatrix}\begin{bmatrix}1&0\\0&e^{i\pi/3}\end{bmatrix}\begin{bmatrix}1&1\\1&-1\end{bmatrix}\begin{bmatrix}1\\0\end{bmatrix}=\begin{bmatrix}\frac{3+i\sqrt3}{4}\\\frac{1-i\sqrt3}{4}\end{bmatrix}\]
+\[P(0)=0.75,\qquad P(1)=0.25\]
+
+
+\subsection*{Question 8}
+
+Write out the full equation represented by the circuit in your solution to Exercise 10 in the coding portion of this week's assignment, operating on the starting state of $|0\rangle$. In order to represent a sequence of multiplication operations, use separate equations. (I.e, apply the first matrix to $|0\rangle$ in one equation, then apply the second matrix to that result in the next equation, etc.)
+
+\subsubsection*{Solution 8:}
+
+\[\frac1{\sqrt2}\begin{bmatrix}1&1\\1&-1\end{bmatrix}\begin{bmatrix}1\\0\end{bmatrix}=\frac1{\sqrt2}\begin{bmatrix}1\\1\end{bmatrix}\]
+\[\begin{bmatrix}1&0\\0&e^{2\pi i/3}\end{bmatrix}\frac1{\sqrt2}\begin{bmatrix}1\\1\end{bmatrix}=\frac1{\sqrt2}\begin{bmatrix}1\\e^{2\pi i/3}\end{bmatrix}\]
+\[\frac1{\sqrt2}\begin{bmatrix}1&1\\1&-1\end{bmatrix}\frac1{\sqrt2}\begin{bmatrix}1\\e^{2\pi i/3}\end{bmatrix}=\begin{bmatrix}\frac{1+i\sqrt3}{4}\\\frac{3-i\sqrt3}{4}\end{bmatrix}\]
+\[P(0)=0.25,\qquad P(1)=0.75\]
+
+\subsection*{Submission}
+
+Be sure to copy or move your solution files (both \texttt{.tex} and \texttt{.pdf}) into the \texttt{solutions} directory for this assignment.
+
+
+\end{document}
