@@ -1,0 +1,382 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+\usepackage[]{amssymb} %gives us the character \varnothing
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usetikzlibrary{quantikz2}
+\usepackage{blochsphere}
+\usepackage{placeins}
+
+\newcommand{\vcwdouble}[3]{
+    \arrow[from=#1,to=#2,arrows, Rightarrow, double distance=.2mm, line width=.2mm, ->, shorten >=1pt, >=latex, "#3" {anchor=south west, yshift=1pt,xshift=2pt},  at end ]
+}
+
+\title{Homework 4}
+\author{Xinyu Wu}
+\date{}
+%This information doesn't actually show up on your document unless you use the maketitle command below
+
+\begin{document}
+\maketitle %This command prints the title based on information entered above
+
+Read the code in the \texttt{hw\_04.tex} file to see how the document is formatted. ``Math mode'' in \LaTeX  can be delimited by dollar signs or by beginning and ending an \texttt{equation} or \texttt{aligned} environment. I suggest making a copy of the original \LaTeX file and editing the copy in case something breaks and you're not sure how to get back to the functioning file. As with any code, make incremental changes and compile them so that if you make a mistake it is easy to undo.
+
+In order to generate a \texttt{.pdf} file, you will use the command line command
+
+\begin{verbatim}
+pdflatex file_name.tex
+\end{verbatim}
+
+You will need both \texttt{latex} and the \texttt{pdflatex} tools installed. Both should be included if you follow the instructions for your platform here:
+
+\begin{verbatim}
+https://www.latex-project.org/get/
+\end{verbatim}
+
+Be sure to put your own name in the author field of this document!
+
+
+\subsection*{Question 1}
+
+You saw in class that the braket notation for a uniform distribution over a 2-qubit system is
+
+\begin{equation*}
+    \frac{1}{2}\ket{0} + \frac{1}{2}\ket{1} + \frac{1}{2}\ket{2} + \frac{1}{2}\ket{3}
+\end{equation*}
+
+And over a 3-qubit system is
+
+\begin{equation*}
+    \frac{\sqrt{2}}{4}\ket{0} + \frac{\sqrt{2}}{4}\ket{1} + \frac{\sqrt{2}}{4}\ket{2} + \frac{\sqrt{2}}{4}\ket{3}
+    + \frac{\sqrt{2}}{4}\ket{4} + \frac{\sqrt{2}}{4}\ket{5} + \frac{\sqrt{2}}{4}\ket{6} + \frac{\sqrt{2}}{4}\ket{7}
+\end{equation*}
+
+In the solution space below, write out a general equation for $n$-qubit systems. Use the $\Sigma$ summation notation. A simple example of the \LaTeX markup for summation is here (note that this example is only to show you how to write a sum in \LaTeX, it is not otherwise related to the answer to this question):
+
+\begin{equation*}
+\sum_{i=0}^{\infty} i
+\end{equation*}
+
+\subsubsection*{Solution 1:}
+
+\[|\psi\rangle=\frac{1}{\sqrt{2^n}}\sum_{i=0}^{2^n-1}|i\rangle\]
+
+\subsection*{Question 2}
+
+Consider a state in superposition
+
+\begin{equation*}
+    \ket{\psi}=
+    \frac{1}{2\sqrt{2}} \ket{000} +
+    \frac{\sqrt{3}}{2\sqrt{2}} \ket{010} +
+    \frac{\sqrt{3}}{2\sqrt{2}} \ket{101} +
+    \frac{1}{2\sqrt{2}} \ket{111}
+\end{equation*}
+
+
+Let's say we carry out a measurement on the rightmost qubit. Fill in the solution area below with the answers to the questions.
+
+\subsubsection*{Solution 2:}
+
+Write out the state vector in column matrix form:
+
+\vspace{5mm}
+
+\[|\psi\rangle=\frac{1}{2\sqrt2}\begin{pmatrix}1\\0\\\sqrt3\\0\\0\\\sqrt3\\0\\1\end{pmatrix}\]
+
+\vspace{5mm}
+
+\noindent What is the probability that the measurement will yield 1?
+
+\vspace{5mm}
+
+\[P(1)=\frac38+\frac18=\frac12\]
+
+\vspace{5mm}
+
+\noindent What is the resulting state of the system if the measurement yields 1?
+
+\vspace{5mm}
+
+\[|\psi\rangle=\frac{\sqrt3}{2}|101\rangle+\frac12|111\rangle\]
+
+\vspace{5mm}
+
+\subsection*{Question 3}
+
+Here's an example of a circuit represented in \LaTeX:
+
+% Here's LaTeX code for a quantum circuit using quantikz. Each item indicated by "line" in commments
+% describes a wire. At the end of each wire (except the last one) we need a double backslash to indicate
+% a newline/new wire. Vertical alignment is accomplished with the & signs. Note that the headers at the
+% top of this file are required, including the definition of \vcwdouble which defines the vertical
+% line with arrow from the meter ()
+\begin{figure}[h!]
+\centering
+    \begin{quantikz}[wire types={q,q,c}] % the types set indicates which wires are quantum (q) and which are classical (c)
+    % line 1
+    \lstick{$q_0$}
+        & \gate{P(\frac{\pi}{2})}
+        & \gate{H}
+        & \ctrl{1}
+        & \meter{} \vcwdouble{1-5}{3-5}{0}
+        & \\
+    % line 2
+    \lstick{$q_1$}
+        & \gate{Y}
+        & \gate{H}
+        & \gate{X}
+        &
+        & \\
+    % line 3
+    \lstick{$c$}
+        & \qwbundle[nwires=2]{1} % labels a wire bundle. In this case just one wire
+        &
+        &
+        &
+        & % Adding a new line (double backslash) here can cause an error.
+    \end{quantikz}
+\end{figure}
+
+You can find documentation on making quantum circuits with Quantikz here: https://arxiv.org/abs/1809.03842
+
+This circuit doesn't have any particular meaning or purpose, it is only intended as reference code for you
+to know how to construct a circuit in \LaTeX. It's just some quantum and classical wires, a bunch of gates,
+some control points, and a meter (measurement icon) with an arrow.
+
+For this exercise, first complete Exercise 7 in this week's coding exercise set. When you have successfully completed
+that coding exercise, you will have a circuit diagram drawn by Qiskit. Using the demo circuit code above as a
+reference/starter code, replicate your circuit diagram from Exercise 7 below in \LaTeX.
+
+
+\subsubsection*{Solution 3:}
+
+\vspace{5mm}
+\begin{center}
+\begin{quantikz}[wire types={q,q,c}]
+\lstick{$q_0$} & \gate{H} & \ctrl{1} & \gate{H} & \meter{} \vcwdouble{1-5}{3-5}{0} & \\
+\lstick{$q_1$} & \gate{X} & \gate{P(\theta)} & \qw & \qw & \\
+\lstick{$c$} & \cw & \cw & \cw & \cw &
+\end{quantikz}
+\end{center}
+
+\vspace{5mm}
+
+
+\subsection*{Question 4}
+
+Here's another example of a circuit in \LaTeX:
+
+\begin{figure}[h!]
+\centering
+    \begin{quantikz}[wire types={q,q,q}] % the types set indicates which wires are quantum (q) and which are classical (c)
+    % line 1
+    \lstick{$q_0$}
+        & \gate{H}
+        \gategroup[3,steps=1,style={dashed,rounded corners,fill=blue!20, inner xsep=2pt},background,label style={label position=below,anchor=north,yshift=-0.2cm}]{}
+        & \ctrl{1}
+        & \gate{H}
+        &\\
+    % line 2
+    \lstick{$q_1$}
+        & \gate{H}
+        & \ctrl{1}
+        & \gate{H}
+        &\\
+    % line 3
+    \lstick{$q_2$}
+        & \gate{H}
+        & \gate{X}
+        & \gate{H}
+        & % Adding a new line (double backslash) here can cause an error.
+    \end{quantikz}
+\end{figure}
+
+In the solution area below, write out the tensor product representing the matrix form of the portion of the
+circuit highlighted in blue (i.e. the first chronological step on the left). Include matrix representations of
+all three individual gates and each pairwise tensor product. Use the \texttt{align*} environment to represent
+multi-step/multi-line equations (see the sample code below).
+
+\subsubsection*{Solution 4:}
+
+
+
+\vspace{5mm}
+
+\begin{align*}
+H\otimes H\otimes H
+&=\frac1{\sqrt2}\begin{pmatrix}1&1\\1&-1\end{pmatrix}\otimes\frac1{\sqrt2}\begin{pmatrix}1&1\\1&-1\end{pmatrix}\otimes\frac1{\sqrt2}\begin{pmatrix}1&1\\1&-1\end{pmatrix}\\
+&=\frac12\begin{pmatrix}1&1&1&1\\1&-1&1&-1\\1&1&-1&-1\\1&-1&-1&1\end{pmatrix}\otimes H\\
+&=\frac1{2\sqrt2}\begin{pmatrix}1&1&1&1&1&1&1&1\\1&-1&1&-1&1&-1&1&-1\\1&1&-1&-1&1&1&-1&-1\\1&-1&-1&1&1&-1&-1&1\\1&1&1&1&-1&-1&-1&-1\\1&-1&1&-1&-1&1&-1&1\\1&1&-1&-1&-1&-1&1&1\\1&-1&-1&1&-1&1&1&-1\end{pmatrix}\end{align*}
+
+\vspace{5mm}
+
+\subsection*{Question 5}
+
+Here's another circuit in \LaTeX:
+
+\begin{figure}[h!]
+\centering
+    \begin{quantikz}[wire types={q,q,q}] % the types set indicates which wires are quantum (q) and which are classical (c)
+    % line 1
+    \lstick{$q_0$}
+        & \gate{H}
+        \gategroup[3,steps=1,style={dashed,rounded
+corners,fill=blue!20, inner
+xsep=2pt},background,label style={label
+position=below,anchor=north,yshift=-0.2cm}]{}
+        & \ctrl{1}
+        &
+        &\\
+    % line 2
+    \lstick{$q_1$}
+        &
+        & \ctrl{1}
+        &
+        &\\
+    % line 3
+    \lstick{$q_2$}
+        &
+        & \gate{X}
+        &
+        & % Adding a new line (double backslash) here can cause an error.
+    \end{quantikz}
+\end{figure}
+
+Just as you did for Problem 4, write out the tensor product for the matrix of the three-qubit operator representing the
+operation of the highlighted portion of the circuit diagram above. Follow the IBM/Qiskit convention of reading qubits
+from bottom to top in the circuit diagram (i.e., greatest significant bit on the bottom, least signficant bit on the top).
+
+\subsubsection*{Solution 5:}
+
+\vspace{5mm}
+
+\begin{align*}
+I\otimes I\otimes H 
+&=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix}\otimes\frac1{\sqrt2}\begin{pmatrix}1&1\\1&-1\end{pmatrix}\\
+&=\frac1{\sqrt2}\begin{pmatrix}1&1&0&0&0&0&0&0\\1&-1&0&0&0&0&0&0\\0&0&1&1&0&0&0&0\\0&0&1&-1&0&0&0&0\\0&0&0&0&1&1&0&0\\0&0&0&0&1&-1&0&0\\0&0&0&0&0&0&1&1\\0&0&0&0&0&0&1&-1\end{pmatrix}\end{align*}
+
+\vspace{5mm}
+
+\FloatBarrier
+
+\subsection*{Question 6}
+
+Here's the circuit from the previous problem again, this time with a different time step highlighted:
+
+\begin{figure}[h!]
+\centering
+    \begin{quantikz}[wire types={q,q,q}] % the types set indicates which wires are quantum (q) and which are classical (c)
+    % line 1
+    \lstick{$q_0$}
+        & \gate{H}
+        & \ctrl{1}   \gategroup[3,steps=1,style={dashed,rounded
+corners,fill=blue!20, inner
+xsep=2pt},background,label style={label
+position=below,anchor=north,yshift=-0.2cm}]{}
+        &
+        &\\
+    % line 2
+    \lstick{$q_1$}
+        &
+        & \ctrl{1}
+        &
+        &\\
+    % line 3
+    \lstick{$q_2$}
+        &
+        & \gate{X}
+        &
+        & % Adding a new line (double backslash) here can cause an error.
+    \end{quantikz}
+\end{figure}
+
+\FloatBarrier
+
+As you did in the previous problems, you'll write out the matrix representing the three qubit operation highlighted.
+However, in this case, we know that a controlled gate cannot be represented by a tensor product of smaller gates.
+
+So how do you arrive at the matrix? First, determine how the matrix should map basis states. If we think of basis states as bit sequences, each three-bit sequence should map to a (not necessarily different) three-bit sequence. Based on this mapping, we can determine how the 8-dimensional basis state vector should transform, and based on this, we can determine what the matrix should be. It is important to remember how the circuit diagram relates to the bitstrings that correspond to basis states. As usual, follow the IBM/Qiskit convention of reading qubits in a circuit bottom-to-top.
+
+\subsubsection*{Solution 6:}
+
+Write out the mapping of basis states to basis states. I've gotten you started with the first and the last basis state mappings.
+Add the rest of them in place of the vertical dots:
+
+\begin{align*}\ket{000}&\mapsto\ket{000}\\\ket{001}&\mapsto\ket{001}\\\ket{010}&\mapsto\ket{010}\\\ket{011}&\mapsto\ket{111}\\\ket{100}&\mapsto\ket{100}\\\ket{101}&\mapsto\ket{101}\\\ket{110}&\mapsto\ket{110}\\\ket{111}&\mapsto\ket{011}\end{align*}
+
+\vspace{5mm}
+
+Write out the matrix that accomplishes the mapping:
+
+\vspace{5mm}
+
+\[\begin{pmatrix}1&0&0&0&0&0&0&0\\0&1&0&0&0&0&0&0\\0&0&1&0&0&0&0&0\\0&0&0&0&0&0&0&1\\0&0&0&0&1&0&0&0\\0&0&0&0&0&1&0&0\\0&0&0&0&0&0&1&0\\0&0&0&1&0&0&0&0\end{pmatrix}\]
+
+\vspace{5mm}
+
+\subsection*{Question 7}
+
+Here's the circuit from the previous two problems, with both the first and second timesteps highlighted:
+
+\begin{figure}[h!]
+\centering
+    \begin{quantikz}[wire types={q,q,q}] % the types set indicates which wires are quantum (q) and which are classical (c)
+    % line 1
+    \lstick{$q_0$}
+        & \gate{H} \gategroup[3,steps=2,style={dashed,rounded
+corners,fill=blue!20, inner
+xsep=2pt},background,label style={label
+position=below,anchor=north,yshift=-0.2cm}]{}
+        & \ctrl{1}
+        &
+        &\\
+    % line 2
+    \lstick{$q_1$}
+        &
+        & \ctrl{1}
+        &
+        &\\
+    % line 3
+    \lstick{$q_2$}
+        &
+        & \gate{X}
+        &
+        & % Adding a new line (double backslash) here can cause an error.
+    \end{quantikz}
+\end{figure}
+
+\FloatBarrier
+
+You've calculated the matrices corresponding to the two timesteps, now you'll calculate the matrix corresponding with the
+highlighted area above. Remember how matrix multiplication is represented, and that it is read from right to left. For example,
+
+\begin{equation*}
+    B(A(\vec{v}))
+\end{equation*}
+
+\noindent refers to the operation of applying the matrix $A$ to the vector $\vec{v}$ and then applying the matrix $B$ to the result of that operation. This is analogous to how function application is typically laid out in text. Always keep this in mind when translating circuit representations (which are chronological from the left) to matrix multiplication, as matrix multiplication is does not commute in general (i.e., ordering matters).
+
+Write out the full matrix multiplication.
+
+\subsubsection*{Solution 7:}
+
+\vspace{5mm}
+
+\[U=\mathrm{CCX}(I\otimes I\otimes H)\]
+\[U=\begin{pmatrix}1&0&0&0&0&0&0&0\\0&1&0&0&0&0&0&0\\0&0&1&0&0&0&0&0\\0&0&0&0&0&0&0&1\\0&0&0&0&1&0&0&0\\0&0&0&0&0&1&0&0\\0&0&0&0&0&0&1&0\\0&0&0&1&0&0&0&0\end{pmatrix}\frac{1}{\sqrt2}\begin{pmatrix}1&1&0&0&0&0&0&0\\1&-1&0&0&0&0&0&0\\0&0&1&1&0&0&0&0\\0&0&1&-1&0&0&0&0\\0&0&0&0&1&1&0&0\\0&0&0&0&1&-1&0&0\\0&0&0&0&0&0&1&1\\0&0&0&0&0&0&1&-1\end{pmatrix}\]
+\[=\frac{1}{\sqrt2}\begin{pmatrix}1&1&0&0&0&0&0&0\\1&-1&0&0&0&0&0&0\\0&0&1&1&0&0&0&0\\0&0&0&0&0&0&1&-1\\0&0&0&0&1&1&0&0\\0&0&0&0&1&-1&0&0\\0&0&0&0&0&0&1&1\\0&0&1&-1&0&0&0&0\end{pmatrix}\]
+
+\vspace{5mm}
+
+\FloatBarrier
+
+\subsection*{Submission}
+
+Be sure to copy or move your solution files (both \texttt{.tex} and \texttt{.pdf}) into the \texttt{solutions} directory for this assignment.
+
+
+\end{document}
