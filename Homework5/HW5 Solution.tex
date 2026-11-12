@@ -1,0 +1,175 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+\usepackage[]{amssymb} %gives us the character \varnothing
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usetikzlibrary{quantikz2}
+\usepackage{url}
+
+
+\title{Homework 5}
+\author{Xinyu Wu}
+\date{}
+%This information doesn't actually show up on your document unless you use the maketitle command below
+
+\begin{document}
+\maketitle %This command prints the title based on information entered above
+
+Read the code in the \texttt{hw\_05.tex} file to see how the document is formatted. ``Math mode'' in \LaTeX  can be delimited by dollar signs or by beginning and ending an \texttt{equation} or \texttt{aligned} environment. I suggest making a copy of the original \LaTeX file and editing the copy in case something breaks and you're not sure how to get back to the functioning file. As with any code, make incremental changes and compile them so that if you make a mistake it is easy to undo.
+
+In order to generate a \texttt{.pdf} file, you will use the command line command
+
+\begin{verbatim}
+pdflatex file_name.tex
+\end{verbatim}
+
+You will need both \texttt{latex} and the \texttt{pdflatex} tools installed. Both should be included if you follow the instructions for your platform here:
+
+\begin{verbatim}
+https://www.latex-project.org/get/
+\end{verbatim}
+
+\subsection*{Quantum teleportation}
+
+The quantum teleportation circuit looks like this:
+
+\begin{figure}[h!]
+\centering
+    \begin{quantikz}[wire types={q,q,q}]
+    % line 1
+    \lstick{$\alpha\ket{0} + \beta\ket{1}$}
+        &
+        &
+        & \ctrl{1}
+        \gategroup[2,steps=3,style={dashed,rounded
+corners,fill=blue!20, inner
+xsep=2pt},background,label style={label
+position=below,anchor=north,yshift=-0.2cm}]{{\sc alice}}
+        & \gate{H}
+        & \meter{} %\slice{}
+        & \setwiretype{c}
+\gategroup[3,steps=2,style={dashed,rounded
+corners,fill=blue!20, inner
+xsep=2pt},background,label style={label
+position=below,anchor=north,yshift=-0.2cm}]{{\sc bob}}
+        & \ctrl{2}\\
+    % line 2
+    \lstick{$\ket{0}$}
+        & \gate{H}
+\gategroup[2,steps=2,style={dashed,rounded
+corners,fill=blue!20, inner
+xsep=2pt},background,label style={label
+position=below,anchor=north,yshift=-0.2cm}]{{\sc e-prep}}
+        & \ctrl{1}%\slice{}
+        & \targ{}
+        & \qw
+        & \meter{}
+        & \ctrl{1}\setwiretype{c}\\
+    % line 3
+    \lstick{$\ket{0}$}
+        &
+        & \targ{}
+        &
+        &
+        &
+        & \gate{X}
+        & \gate{Z}
+        & \enspace \alpha\ket{0} + \beta\ket{1}
+    \end{quantikz}
+\end{figure}
+
+Be sure to put your own name in the author field of this document!
+
+
+\subsection*{Question 1}
+
+If the input amplitudes in the teleportation circuit above are $\alpha = \frac{2}{3}$  
+and $\beta=e^{\frac{\pi}{2}i} \frac{\sqrt{5}}{3}$, 
+calculate the state vector of the full 3-qubit system right before the measurement step.
+
+Assume that the qubits are read from bottom to top, so $|011\rangle$ refers to the bottommost
+qubit being in state $|0\rangle$ and the topmost in state $|1\rangle$. This is important when
+determining the matrix form of controlled gates and the order of arguments to the 
+tensor product operations. 
+
+For the solutions, provide matrix forms for each of the four steps leading up to the state vector 
+you are calculating: the first Hadmard gate, the first CNOT gate, the second CNOT gate, and the second 
+Hadamard gate, reading left to right. Provide the full 3-qubit matrix for all of these steps, then 
+apply them in the correct order to your initial 3-qubit state to determine the final answer to this 
+exercise.
+
+\subsubsection*{Solution 1:}
+
+Give the four matrices in order of left to right:
+
+\vspace{5mm}
+
+\[\displaystyle \begin{bmatrix}\frac{\sqrt{2}}{2} & 0 & \frac{\sqrt{2}}{2} & 0 & 0 & 0 & 0 & 0\\0 & \frac{\sqrt{2}}{2} & 0 & \frac{\sqrt{2}}{2} & 0 & 0 & 0 & 0\\\frac{\sqrt{2}}{2} & 0 & - \frac{\sqrt{2}}{2} & 0 & 0 & 0 & 0 & 0\\0 & \frac{\sqrt{2}}{2} & 0 & - \frac{\sqrt{2}}{2} & 0 & 0 & 0 & 0\\0 & 0 & 0 & 0 & \frac{\sqrt{2}}{2} & 0 & \frac{\sqrt{2}}{2} & 0\\0 & 0 & 0 & 0 & 0 & \frac{\sqrt{2}}{2} & 0 & \frac{\sqrt{2}}{2}\\0 & 0 & 0 & 0 & \frac{\sqrt{2}}{2} & 0 & - \frac{\sqrt{2}}{2} & 0\\0 & 0 & 0 & 0 & 0 & \frac{\sqrt{2}}{2} & 0 & - \frac{\sqrt{2}}{2}\end{bmatrix}\]
+
+\vspace{5mm}
+
+\[\displaystyle \begin{bmatrix}1 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\0 & 1 & 0 & 0 & 0 & 0 & 0 & 0\\0 & 0 & 0 & 0 & 0 & 0 & 1 & 0\\0 & 0 & 0 & 0 & 0 & 0 & 0 & 1\\0 & 0 & 0 & 0 & 1 & 0 & 0 & 0\\0 & 0 & 0 & 0 & 0 & 1 & 0 & 0\\0 & 0 & 1 & 0 & 0 & 0 & 0 & 0\\0 & 0 & 0 & 1 & 0 & 0 & 0 & 0\end{bmatrix}\]
+
+\vspace{5mm}
+
+\[\displaystyle \begin{bmatrix}1 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\0 & 0 & 0 & 1 & 0 & 0 & 0 & 0\\0 & 0 & 1 & 0 & 0 & 0 & 0 & 0\\0 & 1 & 0 & 0 & 0 & 0 & 0 & 0\\0 & 0 & 0 & 0 & 1 & 0 & 0 & 0\\0 & 0 & 0 & 0 & 0 & 0 & 0 & 1\\0 & 0 & 0 & 0 & 0 & 0 & 1 & 0\\0 & 0 & 0 & 0 & 0 & 1 & 0 & 0\end{bmatrix}\]
+
+\vspace{5mm}
+
+\[\displaystyle \begin{bmatrix}\frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2} & 0 & 0 & 0 & 0 & 0 & 0\\\frac{\sqrt{2}}{2} & - \frac{\sqrt{2}}{2} & 0 & 0 & 0 & 0 & 0 & 0\\0 & 0 & \frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2} & 0 & 0 & 0 & 0\\0 & 0 & \frac{\sqrt{2}}{2} & - \frac{\sqrt{2}}{2} & 0 & 0 & 0 & 0\\0 & 0 & 0 & 0 & \frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2} & 0 & 0\\0 & 0 & 0 & 0 & \frac{\sqrt{2}}{2} & - \frac{\sqrt{2}}{2} & 0 & 0\\0 & 0 & 0 & 0 & 0 & 0 & \frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2}\\0 & 0 & 0 & 0 & 0 & 0 & \frac{\sqrt{2}}{2} & - \frac{\sqrt{2}}{2}\end{bmatrix}\]
+
+\vspace{5mm}
+
+\noindent Give the state of the system before the measurments are applied:
+
+\vspace{5mm}
+
+\[|\psi\rangle = M_4M_3M_2M_1|\psi_0\rangle = \begin{bmatrix}\frac{1}{3}\\\frac{1}{3}\\\frac{\sqrt{5} i}{6}\\- \frac{\sqrt{5} i}{6}\\\frac{\sqrt{5} i}{6}\\- \frac{\sqrt{5} i}{6}\\\frac{1}{3}\\\frac{1}{3}\end{bmatrix}\]
+
+
+\subsection*{Question 2}
+
+Do Exercise 2 in the coding problems of this weeks's assignment. Note the average number of bits that are transmitted 
+and the average number of mismatches between bits in alice and bob's resulting keys. As mentioned in the exercise 
+description, you won't expect to see mismatches every time you run the experiment, but there should be some if you
+run the experiment repeatedly. 
+
+Make a note of the name of the backend hardware that most of your experiments run on. Try to determine a 
+rough frequency of bit-flip errors with respect to transmitted bits for a particular backend. 
+
+Look up the backend you used most here:
+
+\url{https://quantum.cloud.ibm.com/computers}
+
+and look at its specifications. You'll see median error rates for several different kinds of errors: CZ errors, 
+SX errors, and Readout errors. I can tell you right now that the CZ errors are not relevant here because there is no 
+entanglement happening, but SX and Readout errors both could be contributing to the errors you are seeing. In the 
+solution area below, describe which kind of errors are most likely contributing most to what you see and explain why.
+
+\subsubsection*{Solution 2:}
+
+\vspace{5mm}
+I ran the BB84 experiment 10 times on real IBM quantum computers.
+The average number of sifted bits was 78.6, with 1.7 mismatches
+per run. The average QBER was about 2.08\%.
+
+The most used backend was \texttt{ibm\_fez}, with 12 mismatches
+out of 468 sifted bits (2.56\%). Readout errors are likely
+an important source of mismatches because the circuit measures
+each qubit. SX gate errors may also contribute because the
+circuit uses Hadamard gates. CZ error is excluded because
+there is no entanglement.
+
+
+\vspace{5mm}
+
+
+\subsection*{Submission}
+
+Be sure to copy or move your solution files (both \texttt{.tex} and \texttt{.pdf}) into the \texttt{solutions} directory for this assignment.
+
+
+\end{document}
